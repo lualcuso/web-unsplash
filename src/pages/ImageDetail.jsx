@@ -37,7 +37,9 @@ const ImageDetail = () => {
       <StyledFullImage alt="Full" src={image.urls.full} />
       <h3>{`Author: ${image.user.name}`}</h3>
       <p>{`${image.likes} Likes`}</p>
-      <button onClick={() => downloadImage(image.id, image.links.download)}>Download</button>
+      <button onClick={() => downloadImage(image.id, image.urls.raw)}>
+        Download
+      </button>
     </StyleImageContainer>
   );
 };
