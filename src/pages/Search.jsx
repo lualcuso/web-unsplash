@@ -86,6 +86,21 @@ const Search = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, color, orientation]);
 
+  const onScroll = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight && currentPage > totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imagesList]);
+
   return (
     <StyledContainer>
       <StyledSearchContainer>
@@ -99,8 +114,10 @@ const Search = () => {
         />
         <button
           onClick={() => {
-            setImagesList([]);
-            getImages(1, searchTerm);
+            if (searchTerm.length) {
+              setImagesList([]);
+              getImages(1, searchTerm, color, orientation);
+            }
           }}
         >
           Search
@@ -111,7 +128,8 @@ const Search = () => {
           <label>Color</label>
           <select
             onChange={(e) => {
-              console.log(e.target.value)
+              setImagesList([])
+              setCurrentPage(1)
               setColor(e.target.value);
             }}
           >
@@ -124,6 +142,8 @@ const Search = () => {
           <label>Orientation</label>
           <select
             onChange={(e) => {
+              setImagesList([]);
+              setCurrentPage(1);
               setOrientation(e.target.value);
             }}
           >
