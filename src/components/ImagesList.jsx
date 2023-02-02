@@ -16,13 +16,19 @@ const StyledImage = styled.img`
 const ImagesList = ({ images }) => {
   return (
     <StyledListContainer>
-      {images.map((image) => {
-        return (
-          <Link to="/image-detail" state={{image}}>
-            <StyledImage alt="img" key={image.id} src={image.urls.regular} />
-          </Link>
-        );
-      })}
+      {images.length ? (
+        images.map((image) => {
+          return (
+            <Link to="/image-detail" state={{ image }}>
+              <StyledImage alt="img" key={image.id} src={image.urls.small} />
+            </Link>
+          );
+        })
+      ) : (
+        <div>
+          <p>Please execute a search to load images</p>
+        </div>
+      )}
     </StyledListContainer>
   );
 };
