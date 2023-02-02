@@ -12,5 +12,5 @@ This is a project in order to use the Unsplash API.
 
 ### Steps
 
-- yarn install
-- npm start
+- `yarn install`
+- `npm start`
